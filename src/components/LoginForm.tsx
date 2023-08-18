@@ -2,7 +2,6 @@
 import Input from "@/components/Input";
 import { useState, useCallback } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
@@ -15,15 +14,12 @@ const LoginForm = ({ setActive }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const router = useRouter();
-
   const login = useCallback(async () => {
     try {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: false,
-        callbackUrl: "/",
+        callbackUrl: "/profiles",
       });
       if (res?.error) {
         toast.error(res.error, {
@@ -34,11 +30,10 @@ const LoginForm = ({ setActive }: Props) => {
       toast.success("Logged in successfully", {
         duration: 4000,
       });
-      router.push("/");
     } catch (error) {
       console.log(error);
     }
-  }, [email, password, router]);
+  }, [email, password]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -69,14 +64,14 @@ const LoginForm = ({ setActive }: Props) => {
         </button>
         <div className="flex flex-row items-center gap-4 mt-8 justify-center">
           <div
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() => signIn("google", { callbackUrl: "/profiles" })}
             className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
           >
             <FcGoogle size={32} />
           </div>
           <div
-            onClick={() => signIn("github", { callbackUrl: "/" })}
-            className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+            onClick={() => signIn("github", { callbackUrl: "/profiles" })}
+            className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
           >
             <FaGithub size={32} />
           </div>
