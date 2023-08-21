@@ -14,6 +14,9 @@ const serverAuth = async () => {
     where: {
       email: session.user.email,
     },
+    include: {
+      favorites: true,
+    },
   });
 
   if (!currentUser) {
