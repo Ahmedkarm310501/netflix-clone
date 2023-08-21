@@ -1,5 +1,6 @@
-// "use client";
 import Billboard from "@/components/Billboard";
+import InfoModal from "@/components/InfoModal";
+import InfoModelContainter from "@/components/InfoModelContainter";
 import MovieList from "@/components/MovieList";
 import MoviesContainer from "@/components/MoviesContainer";
 import NavBar from "@/components/NavBar";
@@ -17,6 +18,7 @@ export default async function Home() {
 
   return (
     <>
+      <InfoModelContainter />
       <NavBar />
       <Billboard />
       <MoviesContainer />

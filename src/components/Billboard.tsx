@@ -1,12 +1,19 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import useBillboard from "@/hooks/useBillboard";
 import PlayButton from "./PlayButton";
+import useInfoModalStore from "@/hooks/useInfoModalStore";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 type Props = {};
 
 const Billboard = (props: Props) => {
+  const { openModal } = useInfoModalStore();
   const { data } = useBillboard();
+
+  const handleOpenModal = useCallback(() => {
+    openModal(data?.id);
+  }, [openModal, data?.id]);
 
   return (
     <div className="relative h-[56.25vw]">
@@ -28,7 +35,7 @@ const Billboard = (props: Props) => {
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
           <PlayButton movieId={data?.id} />
           <button
-            // onClick={handleOpenModal}
+            onClick={handleOpenModal}
             className="
         bg-white
         text-white
@@ -46,7 +53,7 @@ const Billboard = (props: Props) => {
           transition
         "
           >
-            {/* <InformationCircleIcon className="w-4 md:w-7 mr-1" /> */}
+            <AiOutlineInfoCircle size={30} className="w-4 md:w-7 mr-1" />
             More Info
           </button>
         </div>
