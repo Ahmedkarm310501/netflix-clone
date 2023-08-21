@@ -8,7 +8,6 @@ export const GET = async () => {
     const movies = await prismadb.movie.findMany();
     return NextResponse.json(movies, { status: 200 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error: "Not signed in" }, { status: 401 });
   }
 };
